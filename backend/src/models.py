@@ -1,3 +1,5 @@
+import base64
+import uuid
 from typing import Annotated
 from sqlalchemy import MetaData, UniqueConstraint, text
 from sqlalchemy.orm import mapped_column, Mapped, DeclarativeBase
@@ -21,11 +23,4 @@ class Users(Base):
     first_name: Mapped[str]
     second_name: Mapped[str]
     email: Mapped[str]
-    salt: Mapped[str]
-    password: Mapped[str]
-
-    # def set_password(self, password):
-    #     self.password_hash = generate_password_hash(password)
-    #
-    # def check_password(self, password):
-    #     return check_password_hash(self.password_hash, password)
+    password_hash: Mapped[bytes]
