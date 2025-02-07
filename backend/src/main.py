@@ -1,10 +1,10 @@
 import os
-import uuid
 from fastapi import FastAPI, __version__, Depends, HTTPException
 from fastapi import Response, File, UploadFile
 from sqlalchemy import select, and_, text, update, delete
 from sqlalchemy.exc import IntegrityError, NoResultFound
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
 import models
 from constants import SALT, IMAGES_DIR
 from database import sync_engine, get_sync_db_session
@@ -16,6 +16,20 @@ from models import Users
 models.Base.metadata.create_all(bind=sync_engine)
 app = FastAPI()
 
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 @app.post("/upload_logo/{userId}")
 async def update_file(userId: int, new_file: UploadFile = File(), database: Session = Depends(get_sync_db_session)):
     user = database.get(Users, userId)
