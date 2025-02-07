@@ -1,1 +1,8 @@
 /.idea/
+backend/.env
+backend/.venv/
+backend/src/__pycache__/
+backend/src/images/*
+backend/src/user.db
+
+
