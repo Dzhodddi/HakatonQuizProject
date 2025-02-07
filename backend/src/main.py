@@ -1,18 +1,57 @@
+import os
+import uuid
 from fastapi import FastAPI, __version__, Depends, HTTPException
-from fastapi import Response
+from fastapi import Response, File, UploadFile
 from sqlalchemy import select, and_, text, update, delete
 from sqlalchemy.exc import IntegrityError, NoResultFound
 from sqlalchemy.orm import Session
 import models
-from constants import SALT
+from constants import SALT, IMAGES_DIR
 from database import sync_engine, get_sync_db_session
 from jwt_settings import security
-from schemas import RegisterUserEmail, LoginUserEmail, UpdateProfile, DeleteUser
+from schemas import RegisterUserEmail, LoginUserEmail, UpdateProfile, DeleteUser, UsersInfo, UserImage
 from models import Users
 
 
 models.Base.metadata.create_all(bind=sync_engine)
 app = FastAPI()
+
+@app.post("/upload_logo/{userId}")
+async def update_file(userId: int, new_file: UploadFile = File(), database: Session = Depends(get_sync_db_session)):
+    user = database.get(Users, userId)
+
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="User doesn't exist",
+        )
+
+    new_file.filename = f"logo_{userId}.jpg"
+
+    contests = await new_file.read()
+
+    with open(f"{IMAGES_DIR}{new_file.filename}", "wb") as f:
+        f.write(contests)
+
+    return {"success": True}
+
+@app.post("/get_logo/{userId}")
+async def get_logo(userId: int, database: Session = Depends(get_sync_db_session)):
+    user = database.get(Users, userId)
+
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="User doesn't exist",
+        )
+
+    files = os.listdir(IMAGES_DIR)
+    print(files)
+    for file in files:
+        if f"_{userId}" in file:
+            return {"path": f"{IMAGES_DIR}logo_{userId}.jpg"}
+    return {"path": f"{IMAGES_DIR}default_logo.jpg"}
+
 
 @app.get("/")
 def get_version():
@@ -80,7 +119,7 @@ def login_users(creds: LoginUserEmail, response: Response, database: Session = D
 
 
 @app.patch("/update_users/{userId}")
-def login_users(userId: int, creds: UpdateProfile, database: Session = Depends(get_sync_db_session)):
+def update_users(userId: int, creds: UpdateProfile, database: Session = Depends(get_sync_db_session)):
     user = database.get(Users, userId)
 
     if not user:
@@ -130,5 +169,17 @@ def delete_users(userId: int, creds: DeleteUser, database: Session = Depends(get
             status_code=500,
             detail=f"{str(e)}",
     )
+
+
+@app.get("/users/{userId}", )
+def get_users(userId: int, database: Session = Depends(get_sync_db_session)) -> dict:
+    user = database.get(Users, userId)
+
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="User doesn't exist",
+    )
+    return {"first_name": user.first_name, "second_name": user.second_name, "email": user.email}
 
 

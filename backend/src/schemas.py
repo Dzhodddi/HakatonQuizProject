@@ -1,6 +1,6 @@
 from typing import Optional
-
 from pydantic import BaseModel, Field, EmailStr
+
 
 class LoginUserEmail(BaseModel):
     email: EmailStr
@@ -36,6 +36,10 @@ class DeleteUser(BaseModel):
     password: str = Field(..., min_length=8, max_length=32)
 
 
+class UsersInfo(BaseModel):
+    first_name: str = Field(..., min_length=1, max_length=50)
+    second_name: str = Field(..., min_length=1, max_length=50)
+    email: EmailStr
 
-
-
+class UserImage(BaseModel):
+    images_path: str = Field(default="images/default_logo.png")

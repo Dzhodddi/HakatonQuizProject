@@ -1,6 +1,6 @@
 from typing import Annotated
 from sqlalchemy import UniqueConstraint
-from sqlalchemy.orm import mapped_column, Mapped, DeclarativeBase
+from sqlalchemy.orm import mapped_column, Mapped, DeclarativeBase, relationship
 
 from database import Base
 
@@ -16,3 +16,5 @@ class Users(Base):
     second_name: Mapped[str]
     email: Mapped[str]
     password_hash: Mapped[int]
+
+
