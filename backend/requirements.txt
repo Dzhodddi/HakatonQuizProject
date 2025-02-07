@@ -7,3 +7,5 @@ asyncpg==0.30.0
 pydantic==2.10.6
 pydantic-settings==2.7.1
 bcrypt==4.2.1
+authx==1.4.1
+aiosqlite==0.21.0
