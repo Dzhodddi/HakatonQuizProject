@@ -1,6 +1,7 @@
 import os
 from fastapi import FastAPI, __version__, Depends, HTTPException
 from fastapi import Response, File, UploadFile
+from pydantic import EmailStr
 from sqlalchemy import select, and_, text, update, delete
 from sqlalchemy.exc import IntegrityError, NoResultFound
 from sqlalchemy.orm import Session
@@ -30,7 +31,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-@app.post("/upload_logo/{userId}")
+
+@app.patch("/upload_logo/{userId}")
 async def update_file(userId: int, new_file: UploadFile = File(), database: Session = Depends(get_sync_db_session)):
     user = database.get(Users, userId)
 
@@ -84,13 +86,14 @@ def register_users(creds: RegisterUserEmail, database: Session = Depends(get_syn
         )
         database.add(new_user)
         database.commit()
+        return {"first_name": new_user.first_name, "second_name": new_user.second_name, "email": new_user.email}
     except IntegrityError as e:
         database.rollback()
         raise HTTPException(status_code=409, detail="User with this email is already registered")
     except Exception as e:
         raise HTTPException(status_code=500, detail= f"{str(e)}") from e
 
-    return {"email": creds.email}
+
 
 @app.post("/login")
 def login_users(creds: LoginUserEmail, response: Response, database: Session = Depends(get_sync_db_session)):
@@ -189,7 +192,7 @@ def delete_users(userId: int, creds: DeleteUser, database: Session = Depends(get
 
 
 @app.get("/users/{userId}", )
-def get_users(userId: int, database: Session = Depends(get_sync_db_session)) -> dict:
+def get_user(userId: int, database: Session = Depends(get_sync_db_session)) -> dict:
     user = database.get(Users, userId)
 
     if not user:
@@ -198,5 +201,6 @@ def get_users(userId: int, database: Session = Depends(get_sync_db_session)) -> 
             detail="User doesn't exist",
     )
     return {"first_name": user.first_name, "second_name": user.second_name, "email": user.email}
+
 
 
