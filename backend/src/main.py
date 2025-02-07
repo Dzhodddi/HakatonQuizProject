@@ -146,6 +146,9 @@ def update_users(userId: int, creds: UpdateProfile, database: Session = Depends(
 @app.delete("/delete_user/{userId}")
 def delete_users(userId: int, creds: DeleteUser, database: Session = Depends(get_sync_db_session)):
     user = database.get(Users, userId)
+    logo_path: str = f"{IMAGES_DIR}logo_{userId}.jpg"
+    if os.path.exists(logo_path):
+        os.remove(logo_path)
     if not user:
         raise HTTPException(
             status_code=404,
