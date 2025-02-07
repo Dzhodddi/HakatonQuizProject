@@ -15,4 +15,4 @@ class Users(Base):
     first_name: Mapped[str]
     second_name: Mapped[str]
     email: Mapped[str]
-    password_hash: Mapped[bytes]
+    password_hash: Mapped[int]

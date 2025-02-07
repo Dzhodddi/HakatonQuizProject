@@ -32,6 +32,10 @@ class UpdateProfile(BaseModel):
         arbitrary_types_allowed = True
 
 
+class DeleteUser(BaseModel):
+    password: str = Field(..., min_length=8, max_length=32)
+
+
 
 
 
