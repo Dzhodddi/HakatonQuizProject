@@ -86,7 +86,7 @@ def register_users(creds: RegisterUserEmail, database: Session = Depends(get_syn
         )
         database.add(new_user)
         database.commit()
-        return {"first_name": new_user.first_name, "second_name": new_user.second_name, "email": new_user.email}
+        return {"id": new_user.id, "first_name": new_user.first_name, "second_name": new_user.second_name, "email": new_user.email}
     except IntegrityError as e:
         database.rollback()
         raise HTTPException(status_code=409, detail="User with this email is already registered")
@@ -115,7 +115,7 @@ def login_users(creds: LoginUserEmail, response: Response, database: Session = D
         if user_password == result.password_hash:
             token = security.create_access_token(uid= f"{result.id}")
             response.set_cookie(token)
-            return {"id": result.id}
+            return {"id": result.id, "first_name": result.first_name, "second_name": result.second_name, "email": result.email}
         else:
             raise HTTPException(
                 status_code=404,
