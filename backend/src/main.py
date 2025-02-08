@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import models
 from database import sync_engine
+from routers.quizzes_router import quizzes_router
 from routers.users_router import user_router
 
 models.Base.metadata.create_all(bind=sync_engine)
@@ -22,8 +23,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-app.include_router(user_router, tags=["Users"], prefix="/api/users")
+# prefix="/api/users"
+app.include_router(user_router, tags=["Users"])
+app.include_router(quizzes_router, tags = ["Quizzes"], prefix="/api/quizzes")
 
 @app.get("/", tags=["Services"], summary="Get version of FastAPI")
 def get_version():

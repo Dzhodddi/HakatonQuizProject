@@ -1,6 +1,8 @@
 from typing import Optional
 from pydantic import BaseModel, Field, EmailStr
 
+from constants import IMAGES_DIR
+
 
 class LoginUserEmail(BaseModel):
     email: EmailStr
@@ -42,4 +44,15 @@ class UsersInfo(BaseModel):
     email: EmailStr
 
 class UserImage(BaseModel):
-    images_path: str = Field(default="images/default_logo.png")
+    images_path: str = Field(default=f"{IMAGES_DIR}/default_logo.png")
+
+
+# class CreateSlides(BaseModel):
+#
+#     question1: str = Field(..., min_length=1, max_length=50)
+#     question2: str = Field(default="", min_length=0, max_length=50, )
+#     question3: str = Field(default="", min_length=0, max_length=50)
+#     question4: str = Field(default="", min_length=0, max_length=50)
+
+
+

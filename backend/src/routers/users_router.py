@@ -1,6 +1,5 @@
 import os
 from typing import Type
-
 from fastapi import Depends, HTTPException, APIRouter
 from fastapi import Response, File, UploadFile
 from sqlalchemy import select, and_, text, update, delete
@@ -35,7 +34,7 @@ def register_users(creds: RegisterUserEmail, database: Session = Depends(get_syn
 
 
 @user_router.post("/login")
-def login_users(creds: LoginUserEmail, response: Response, database: Session = Depends(get_sync_db_session)):
+def login_users(creds: LoginUserEmail, database: Session = Depends(get_sync_db_session)):
     subquery = (
         select(
             Users
