@@ -22,23 +22,29 @@ class Users(Base):
     #     back_populates="quizzes",
     # )
 
-# class Quizzes(Base):
-#     __tablename__ = "quizzes"
-#
-#     id: Mapped[intpk]
-#     author_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
-#     title: Mapped[str]
-#     description: Mapped[str]
+class Quizzes(Base):
+    __tablename__ = "quizzes"
+
+    id: Mapped[intpk]
+    author_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
+    title: Mapped[str]
+    description: Mapped[str]
 
     # slides: Mapped[list["Slides"]] = relationship(
     #     back_populates="slides",
     # )
 
-# class Slides(Base):
-#     __tablename__ = "slides"
-#
-#     id: Mapped[int] = mapped_column(ForeignKey("quizzes.id", ondelete="CASCADE"))
-#     question1: Mapped[str]
-    # question2: Optional[str]
-    # question3: Optional[str]
-    # question4: Optional[str]
+class Slides(Base):
+    __tablename__ = "slides"
+    quiz_id: Mapped[int] = mapped_column(ForeignKey("quizzes.id", ondelete="CASCADE"))
+    answer_id: Mapped[int]
+    slide_id: Mapped[int]
+    question1: Mapped[str]
+    question2: Mapped[str]
+    question3: Mapped[str]
+    question4: Mapped[str]
+    useless_id: Mapped[intpk]
+
+    # quiz: Mapped["Quizzes"] = relationship(
+    #     back_populates="quizzes",
+    # )

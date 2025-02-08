@@ -6,6 +6,7 @@ from database import sync_engine
 from routers.quizzes_router import quizzes_router
 from routers.users_router import user_router
 
+models.Base.metadata.drop_all(sync_engine)
 models.Base.metadata.create_all(bind=sync_engine)
 app = FastAPI()
 
@@ -25,9 +26,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# prefix="/api/users"
+#, prefix="/api/users"
 app.include_router(user_router, tags=["Users"])
-app.include_router(quizzes_router, tags = ["Quizzes"], prefix="/api/quizzes")
+#, prefix="/api/quizzes"
+app.include_router(quizzes_router, tags = ["Quizzes"])
 
 @app.get("/", tags=["Services"], summary="Get version of FastAPI")
 def get_version():
