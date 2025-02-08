@@ -4,15 +4,6 @@ from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from sqlalchemy import create_engine, MetaData
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-class Settings(BaseSettings):
-
-    JWT_KEY: str
-    model_config = SettingsConfigDict(env_file="../.env")
-
-
-settings = Settings()
-
-
 SQLITE_DATABASE_URL = "sqlite:///./user.db"
 
 sync_engine = create_engine(
