@@ -1,5 +1,6 @@
+import datetime
 from typing import Annotated, Optional
-from sqlalchemy import UniqueConstraint, ForeignKey
+from sqlalchemy import UniqueConstraint, ForeignKey, text
 from sqlalchemy.orm import mapped_column, Mapped, DeclarativeBase, relationship
 
 from database import Base
@@ -17,10 +18,7 @@ class Users(Base):
     email: Mapped[str]
     password_hash: Mapped[int]
 
-
-    # quizzes: Mapped[list["Quizzes"]] = relationship(
-    #     back_populates="quizzes",
-    # )
+    quizzes_list: Mapped[list["Quizzes"]] =  relationship(backref="users", cascade="all, delete")
 
 class Quizzes(Base):
     __tablename__ = "quizzes"
@@ -29,10 +27,11 @@ class Quizzes(Base):
     author_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
     title: Mapped[str]
     description: Mapped[str]
+    created_at: Mapped[datetime.datetime] = mapped_column(default=text("datetime()"))
 
-    # slides: Mapped[list["Slides"]] = relationship(
-    #     back_populates="slides",
-    # )
+    user: Mapped["Users"] = relationship(back_populates="quizzes_list")
+
+    slides_list: Mapped[list["Slides"]] = relationship(backref="quizzes", cascade="all, delete")
 
 class Slides(Base):
     __tablename__ = "slides"
@@ -45,6 +44,6 @@ class Slides(Base):
     question4: Mapped[str]
     useless_id: Mapped[intpk]
 
-    # quiz: Mapped["Quizzes"] = relationship(
-    #     back_populates="quizzes",
-    # )
+    quiz: Mapped["Quizzes"] = relationship(back_populates="slides_list")
+
+

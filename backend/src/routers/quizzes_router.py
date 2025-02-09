@@ -39,6 +39,8 @@ def create_quiz(creds: CreateQuizzes, database: Session = Depends(get_sync_db_se
                 question3= slide['question3'],
                 question4= slide['question4']
             )
+            # new_quiz.slides.append(new_slide)
+            # new_slide.quiz.add(new_quiz)
             database.add(new_slide)
         database.commit()
 
