@@ -1,14 +1,16 @@
 import os
 from typing import Type
+
 from fastapi import Depends, HTTPException, APIRouter
-from fastapi import Response, File, UploadFile
-from sqlalchemy import select, and_, text, update, delete
+from fastapi import File, UploadFile
+from sqlalchemy import select, and_
 from sqlalchemy.exc import IntegrityError, NoResultFound
 from sqlalchemy.orm import Session
-from constants import SALT, IMAGES_DIR
-from database import  get_sync_db_session
-from schemas import RegisterUserEmail, LoginUserEmail, UpdateProfile, DeleteUser, UsersInfo, UserImage
+
+from constants import SALT, IMAGES_DIR, WEBSOCKET_LOG_DIR
+from database import get_sync_db_session
 from models import Users
+from schemas import RegisterUserEmail, LoginUserEmail, UpdateProfile, DeleteUser
 
 user_router = APIRouter()
 
@@ -108,6 +110,8 @@ def delete_users(userId: int, creds: DeleteUser, database: Session = Depends(get
     try:
         database.delete(user)
         database.commit()
+        with open(f"{WEBSOCKET_LOG_DIR}ws.log", "w") as f:
+            f.write("Updated")
         return {"success" : True}
     except Exception as e:
         raise HTTPException(
@@ -119,7 +123,10 @@ def delete_users(userId: int, creds: DeleteUser, database: Session = Depends(get
 @user_router.get("/users/{userId}", )
 def get_user(userId: int, database: Session = Depends(get_sync_db_session)) -> dict:
     user = get_and_check_user(userId, database)
-    return {"first_name": user.first_name, "second_name": user.second_name, "email": user.email}
+    # print(user.rating_list)
+    rating_list = [f"You rated {ratings.quiz_id} with {ratings.rating} stars" for ratings in user.rating_list]
+    print(rating_list)
+    return {"first_name": user.first_name, "second_name": user.second_name, "email": user.email, "ratings": 1}
 
 
 @user_router.patch("/upload_logo/{userId}")

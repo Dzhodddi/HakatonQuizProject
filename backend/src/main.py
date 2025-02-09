@@ -3,11 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import models
 from database import sync_engine
+from routers.websocket_router import ws_router
 from routers.quizzes_router import quizzes_router
 from routers.users_router import user_router
 
 # models.Base.metadata.drop_all(sync_engine)
-models.Base.metadata.create_all(bind=sync_engine)
+# models.Base.metadata.create_all(bind=sync_engine)
 app = FastAPI()
 
 origins = [
@@ -30,7 +31,7 @@ app.add_middleware(
 app.include_router(user_router, tags=["Users"])
 #, prefix="/api/quizzes"
 app.include_router(quizzes_router, tags = ["Quizzes"])
-
+app.include_router(ws_router, tags=["Ws APIs"])
 @app.get("/", tags=["Services"], summary="Get version of FastAPI")
 def get_version():
     return {"version": __version__}

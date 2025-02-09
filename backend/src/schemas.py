@@ -68,3 +68,10 @@ class CreateQuizzes(BaseModel):
 
 
 
+class RatingQuizzes(BaseModel):
+    quiz_id: int
+    guest_id: int
+    rating: int = Field(ge=0, le=5, default=0)
+
+
+
