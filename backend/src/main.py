@@ -1,5 +1,8 @@
-from fastapi import FastAPI, __version__
+from fastapi import FastAPI, __version__, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.openapi.models import Response
+from starlette.requests import Request
+from starlette.responses import RedirectResponse, JSONResponse
 
 import models
 from database import sync_engine
@@ -10,6 +13,12 @@ from routers.users_router import user_router
 # models.Base.metadata.drop_all(sync_engine)
 # models.Base.metadata.create_all(bind=sync_engine)
 app = FastAPI()
+
+
+# @app.exception_handler(404)
+# async def unicorn_exception_handler(request: Request, exc: Exception):
+#     return RedirectResponse(url="https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+#
 
 origins = [
     "http://localhost:5173",

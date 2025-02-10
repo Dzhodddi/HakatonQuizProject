@@ -63,14 +63,9 @@ def login_users(creds: LoginUserEmail, database: Session = Depends(get_sync_db_s
     except NoResultFound:
         raise HTTPException(
             status_code=404,
-            detail="Wrong credentials",
+            detail="NoResultFound",
     )
 
-    except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail= f"{str(e)}",
-    )
 
 
 @user_router.patch("/update_users/{userId}")
@@ -123,10 +118,16 @@ def delete_users(userId: int, creds: DeleteUser, database: Session = Depends(get
 @user_router.get("/users/{userId}", )
 def get_user(userId: int, database: Session = Depends(get_sync_db_session)) -> dict:
     user = get_and_check_user(userId, database)
-    # print(user.rating_list)
-    rating_list = [f"You rated {ratings.quiz_id} with {ratings.rating} stars" for ratings in user.rating_list]
-    print(rating_list)
-    return {"first_name": user.first_name, "second_name": user.second_name, "email": user.email, "ratings": 1}
+    quizzes_history: set = set()
+
+
+    for ratings in user.rating_list:
+        if ratings.quizzes is not None:
+            quizzes_history.add(ratings.quizzes)
+
+
+    quiz_history = [f'You completed {quiz.id} quiz' for quiz in quizzes_history]
+    return {"first_name": user.first_name, "second_name": user.second_name, "email": user.email, "quiz_history": quiz_history}
 
 
 @user_router.patch("/upload_logo/{userId}")

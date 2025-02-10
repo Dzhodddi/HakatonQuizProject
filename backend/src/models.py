@@ -18,12 +18,12 @@ class Users(Base):
     email: Mapped[str]
     password_hash: Mapped[int]
 
-    quizzes_list: Mapped[list["Quizzes"]] =  relationship(back_populates="user", cascade="all, delete")
+    quizzes_list: Mapped[list["Quizzes"]] =  relationship(back_populates="user", cascade="delete")
     rating_list: Mapped[list["QuizRating"]]= relationship(
         "QuizRating",
         secondary="rating",
         back_populates="users",
-        cascade="all, delete",
+        cascade="delete",
         primaryjoin="Users.id == rating.c.guest_id",
         secondaryjoin="QuizRating.guest_id == users.c.id",
     )
@@ -39,14 +39,15 @@ class Quizzes(Base):
 
     user: Mapped["Users"] = relationship(back_populates="quizzes_list")
 
-    slides_list: Mapped[list["Slides"]] = relationship(back_populates="quiz", cascade="all, delete")
+    slides_list: Mapped[list["Slides"]] = relationship(back_populates="quiz", cascade="delete")
     rating_list: Mapped[list["QuizRating"]] = relationship(
         "QuizRating",
         secondary="rating",
         back_populates="quizzes",
-        cascade="all, delete",
+        cascade="delete",
         primaryjoin="Quizzes.id == rating.c.quiz_id",
         secondaryjoin="QuizRating.quiz_id == quizzes.c.id",
+        order_by="QuizRating.completed_at.asc()"
     )
 
 
