@@ -54,7 +54,10 @@ def create_quiz(creds: CreateQuizzes, database: Session = Depends(get_sync_db_se
 def get_quiz_description(quizId: int, database: Session = Depends(get_sync_db_session)):
     quiz = get_and_check_quiz(quizId, database)
     print(quiz.rating_list)
-    rating_list: float = sum([ratings.rating for ratings in quiz.rating_list]) / len(quiz.rating_list)
+    try:
+        rating_list: float = round(sum([ratings.rating for ratings in quiz.rating_list]) / len(quiz.rating_list), 2 )
+    except ZeroDivisionError:
+        rating_list:float = 0.00
     response_dict =  {"quiz_id" : quiz.id, "author_id": quiz.author_id, "quiz_author": f"{quiz.user.first_name} {quiz.user.second_name}",
             "quiz_title": quiz.title, "quiz_description": quiz.description, "quiz_ratings": rating_list}
     return response_dict
