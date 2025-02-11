@@ -1,42 +1,15 @@
-import os
-
-from dotenv import load_dotenv
-from fastapi import FastAPI, __version__, HTTPException
+from fastapi import FastAPI, __version__
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.openapi.models import Response
-from fastapi.security import OAuth2PasswordBearer
-from passlib.context import CryptContext
-from pydantic import BaseModel
-from pydantic_settings import BaseSettings, SettingsConfigDict
-from starlette.requests import Request
-from starlette.responses import RedirectResponse, JSONResponse
-import jwt
 import models
 from database import sync_engine
 from routers.websocket_router import ws_router
 from routers.quizzes_router import quizzes_router
 from routers.users_router import user_router
-#
-# models.Base.metadata.drop_all(sync_engine)
-# models.Base.metadata.create_all(bind=sync_engine)
-app = FastAPI()
 
-# load_dotenv()
-# SECRET_KEY = os.getenv("SECRET_KEY")
-#
-#
-# class Token(BaseModel):
-#     access_token: str
-#     token_type: str
-# ALGORITHM = "HS256"
-# pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-#
-# def create_access_token(data: dict):
-#     to_encode = data.copy()
-#
-#     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-#     return encoded_jwt
+
+# models.Base.metadata.drop_all(sync_engine)
+models.Base.metadata.create_all(bind=sync_engine)
+app = FastAPI()
 
 
 origins = [
