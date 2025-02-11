@@ -1,8 +1,23 @@
 import websockets
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+
+from constants import WEBSOCKET_LOG_DIR
+
+ws_router = APIRouter()
 
 
-async def send_messages():
-    uri = "ws://localhost:8765"
-    async with websockets.connect(uri) as websocket:
-        await websocket.handshake()
-        await websocket.send("Updated")
+@ws_router.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    # Accept the connection from the client
+    await websocket.accept()
+    try:
+        while True:
+            # Receive message from client
+            message = await websocket.receive_text()
+            if message == "Clear":
+                with open(f"{WEBSOCKET_LOG_DIR}ws.log", "w") as f:
+                    f.write("Clear")
+
+            # await websocket.send_text(f"Message received: {message}")
+    except WebSocketDisconnect:
+        print("Client disconnected")

@@ -8,10 +8,9 @@ from sqlalchemy import select, and_
 from sqlalchemy.exc import IntegrityError, NoResultFound
 from sqlalchemy.orm import Session
 
-from constants import SALT, IMAGES_DIR
+from constants import SALT, IMAGES_DIR, WEBSOCKET_LOG_DIR
 from database import get_sync_db_session
 from models import Users
-from routers.ws_router import send_messages
 from schemas import RegisterUserEmail, LoginUserEmail, UpdateProfile, DeleteUser
 
 user_router = APIRouter()
@@ -107,7 +106,8 @@ async def delete_users(userId: int, creds: DeleteUser, database: Session = Depen
     try:
         database.delete(user)
         database.commit()
-        await send_messages()
+        with open(f"{WEBSOCKET_LOG_DIR}ws.log", "w") as f:
+            f.write("Updated")
         return {"success" : True}
     except Exception as e:
         raise HTTPException(

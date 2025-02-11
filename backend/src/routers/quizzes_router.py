@@ -9,7 +9,6 @@ from fastapi.responses import JSONResponse
 from database import get_sync_db_session
 
 from models import Slides, Quizzes, QuizRating
-from routers.ws_router import send_messages
 from schemas import CreateQuizzes, RatingQuizzes
 
 quizzes_router = APIRouter()
@@ -26,8 +25,8 @@ async def create_quiz(creds: CreateQuizzes, database: Session = Depends(get_sync
             description = json_data['description']
         )
         database.add(new_quiz)
-
-        await send_messages()
+        with open(f"{WEBSOCKET_LOG_DIR}ws.log", "w") as f:
+            f.write("Updated")
 
         database.commit()
         for idx, slide in enumerate(json_data['slides']):
