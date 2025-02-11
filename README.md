@@ -39,7 +39,15 @@ sudo apt-get install python3-pip
 ```
 ## Set up project
 
-Create new directory and use command: ```git pull https://github.com/Dzhodddi/HakatonQuizProject.git"
+Create new directory and use commands: 
+
+```git init```
+
+```git branch -M main```
+
+```git remote add origin https://github.com/Dzhodddi/HakatonQuizProject.git```
+
+```git pull https://github.com/Dzhodddi/HakatonQuizProject.git ```
 
 ## Set up backend
 
