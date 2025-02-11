@@ -27,7 +27,7 @@ async def create_quiz(creds: CreateQuizzes, database: Session = Depends(get_sync
         )
         database.add(new_quiz)
 
-        asyncio.run(send_messages())
+        await send_messages()
 
         database.commit()
         for idx, slide in enumerate(json_data['slides']):

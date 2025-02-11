@@ -107,7 +107,7 @@ async def delete_users(userId: int, creds: DeleteUser, database: Session = Depen
     try:
         database.delete(user)
         database.commit()
-        asyncio.run(send_messages())
+        await send_messages()
         return {"success" : True}
     except Exception as e:
         raise HTTPException(
