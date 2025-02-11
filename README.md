@@ -23,7 +23,7 @@ Frontend:
 
 ### Usage
 
-## Requirements
+# Requirements
 
 node.js
 python 3.12.3
