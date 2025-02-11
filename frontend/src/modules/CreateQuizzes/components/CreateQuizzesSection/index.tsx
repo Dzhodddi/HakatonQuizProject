@@ -7,7 +7,7 @@ import { CustomBox } from 'src/UI/CustomBox';
 import { styles } from './styles';
 import { useNavigate } from 'react-router-dom';
 import { useNewQuiz } from '../../store/useNewQuiz';
-import { dummyUser } from 'src/modules/Quizzes/constants';
+import { useUserStore } from 'src/modules/Login/store/useUserStore';
 
 export interface CreateQuizSectionProps {}
 
@@ -17,6 +17,7 @@ export const CreateQuizSection: FC<CreateQuizSectionProps> = memo(() => {
     const [titleError, setTitleError] = useState("");
     const navigate = useNavigate();
     const { setNewQuiz } = useNewQuiz();
+    const { user } = useUserStore();
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
@@ -38,7 +39,7 @@ export const CreateQuizSection: FC<CreateQuizSectionProps> = memo(() => {
             id: 0,
             title,
             description,
-            author: dummyUser,
+            authorId: Number(user.id),
             questions: [],
         });
 

@@ -15,7 +15,7 @@ export interface CustomTextFieldProps {
     type?: string;
 }
 
-export const CustomTextField: FC<CustomTextFieldProps> = memo(({ label, value, onChange = () => {}, isMultiline, isHalf, error, errorText, maxLength, type }) => {
+export const CustomTextField: FC<CustomTextFieldProps> = memo(({ label, value = "", onChange = () => {}, isMultiline, isHalf, error, errorText, maxLength, type }) => {
   const onChangeLocal = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (maxLength && event.target.value.length > maxLength) {
       return;

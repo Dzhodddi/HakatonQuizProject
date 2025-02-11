@@ -21,9 +21,15 @@ export const QuizResultCard: FC<QuizResultCardProps> = memo(({ selectedOption, q
     
     <Box sx={styles.options}>
         <QuestionOptionTextField value={question.option1} canEdit={false} onChange={()=>{}} isSelected={selectedOption === 1} isCorrect={question.correct_option === 1} isWrong={isWrong(1)}/>
-        <QuestionOptionTextField value={question.option2} canEdit={false} onChange={()=>{}} isSelected={selectedOption === 2} isCorrect={question.correct_option === 2} isWrong={isWrong(2)}/>
-        <QuestionOptionTextField value={question.option3} canEdit={false} onChange={()=>{}}  isSelected={selectedOption === 3} isCorrect={question.correct_option === 3} isWrong={isWrong(3)}/>
-        <QuestionOptionTextField value={question.option4} canEdit={false} onChange={()=>{}} isSelected={selectedOption === 4} isCorrect={question.correct_option === 4} isWrong={isWrong(4)}/>
+        {question.option2 !== "" && (
+          <QuestionOptionTextField value={question.option2} canEdit={false} onChange={()=>{}} isSelected={selectedOption === 2} isCorrect={question.correct_option === 2} isWrong={isWrong(2)}/>
+        )}
+        {question.option3 !== "" && (
+          <QuestionOptionTextField value={question.option3} canEdit={false} onChange={()=>{}} isSelected={selectedOption === 3} isCorrect={question.correct_option === 3} isWrong={isWrong(3)}/>
+        )}
+        {question.option4 !== "" && (
+          <QuestionOptionTextField value={question.option4} canEdit={false} onChange={()=>{}} isSelected={selectedOption === 4} isCorrect={question.correct_option === 4} isWrong={isWrong(4)}/>
+        )}
     </Box>
     </CustomBox>
   );

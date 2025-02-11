@@ -8,6 +8,8 @@ import { CreateQuizSuccessPage } from "./pages/CreateQuizSuccessPage";
 import { AboutQuizPage } from "./pages/AboutQuizPage";
 import { QuizQuestionPage } from "./pages/QuizQuestionPage";
 import { QuizResultsPage } from "./pages/QuizResultsPage";
+import { ProfilePage } from "./pages/ProfilePage";
+import LazyLoadPage from "./pages/LazyLoadPage";
 
 const Routing = () => {
   return (
@@ -23,27 +25,32 @@ const Routing = () => {
     />
     <Route
         path={`/quizzes`}
-        element={<QuizzesPage />}
+        element={<LazyLoadPage><QuizzesPage /></LazyLoadPage>}
       />
       <Route
         path={`/create-quiz`}
-        element={<CreateQuizPage />}
+        element={<LazyLoadPage><CreateQuizPage /></LazyLoadPage>}
       />
       <Route
         path={`/create-quiz/questions`}
-        element={<CreateQuestionsPage />}
+        element={<LazyLoadPage><CreateQuestionsPage /></LazyLoadPage>}
       />
       <Route
         path={`/create-quiz/success`}
-        element={<CreateQuizSuccessPage />}
+        element={<LazyLoadPage><CreateQuizSuccessPage /></LazyLoadPage>}
       />
-      <Route path="/quizzes/:quizId" element={<AboutQuizPage />} />
+      <Route path="/quizzes/:quizId" element={<LazyLoadPage><AboutQuizPage /></LazyLoadPage>} />
 
-      <Route path="/quizzes/:quizId/:questionId" element={<QuizQuestionPage />} />
+      <Route path="/quizzes/:quizId/:questionId" element={<LazyLoadPage><QuizQuestionPage /></LazyLoadPage>} />
 
       <Route
         path={`/quizzes/results`}
-        element={<QuizResultsPage />}
+        element={<LazyLoadPage><QuizResultsPage /></LazyLoadPage>}
+      />
+
+      <Route
+        path={`/profile`}
+        element={<LazyLoadPage><ProfilePage /></LazyLoadPage>}
       />
   </Routes>
   );

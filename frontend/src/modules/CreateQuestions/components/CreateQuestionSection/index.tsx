@@ -8,6 +8,7 @@ import { AddQuestionCard } from '../AddQuestionCard';
 import { QuestionType } from 'src/types/quiz';
 import { useNewQuiz } from 'src/modules/CreateQuizzes/store/useNewQuiz';
 import { useNavigate } from 'react-router-dom';
+import { useCreateQuiz } from '../../hooks/useCreateQuiz';
 
 export interface CreateQuestionsSectionProps {}
 
@@ -24,6 +25,7 @@ export const CreateQuestionsSection: FC<CreateQuestionsSectionProps> = memo(() =
   const [questions, setQuestions] = useState<QuestionType[]>([defaultQuestion]);
   const { quiz, setNewQuiz } = useNewQuiz();
   const navigate = useNavigate();
+  const { loading, apiError, postCreateQuiz } = useCreateQuiz();
 
   const onTitleChange = (title: string, index: number) => {
     const newQuestions = [...questions];
@@ -42,21 +44,21 @@ export const CreateQuestionsSection: FC<CreateQuestionsSectionProps> = memo(() =
 
   const setCurrentCorrectOption = (questionIndex: number, index: number) => {
     const newQuestions = [...questions];
-    newQuestions[questionIndex].correct_option = index;
+    newQuestions[questionIndex].correct_option = Number(index);
     setQuestions(newQuestions);
   };
 
   const addQuestion = () => {
-    setQuestions([...questions, defaultQuestion]);
+    setQuestions((prev) => [...prev, defaultQuestion]);
   };
 
-  const onSubmit = () => {
-    setNewQuiz({
-        ...quiz,
-        questions,
-    });
+  const onSubmit = async () => {
+    const newQuiz = { ...quiz, questions };
+    setNewQuiz(newQuiz);
 
-    console.log(quiz);
+    const response = await postCreateQuiz(newQuiz);
+
+    if (!response) return;
 
     navigate("/create-quiz/success");
   };
@@ -83,7 +85,9 @@ export const CreateQuestionsSection: FC<CreateQuestionsSectionProps> = memo(() =
                 />
             ))}
 
-            <StyledButton title="Submit" onClick={onSubmit} />
+            {apiError && <Typography variant="body1" color="error">Error creating quiz. Try again later</Typography>}
+
+            <StyledButton loading={loading} title="Submit" onClick={onSubmit}  />
         </CustomBox>
   );
 });

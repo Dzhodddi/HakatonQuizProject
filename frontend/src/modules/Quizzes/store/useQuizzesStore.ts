@@ -1,9 +1,9 @@
-import { QuizType } from 'src/types/quiz';
+import { QuizShortInfoType } from 'src/types/quiz';
 import { create } from 'zustand'
 
 interface QuizzesState {
-  quizzes: QuizType[];
-    setQuizzes: (quizzes: QuizType[]) => void;
+  quizzes: QuizShortInfoType[];
+    setQuizzes: (quizzes: QuizShortInfoType[]) => void;
 }
 
 export const useQuizzesStore = create<QuizzesState>()((set) => ({

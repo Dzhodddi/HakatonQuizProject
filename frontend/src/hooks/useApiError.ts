@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { AxiosError } from "axios";
 
 export const useApiError = () => {

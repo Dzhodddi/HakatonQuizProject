@@ -16,7 +16,7 @@ export const Header: FC<HeaderProps> = memo(() => {
         <Box sx={styles.buttonGroup}>
             <StyledButton title="Create Quiz" onClick={() => navigate("/create-quiz")} color="mainPalette.white" textColor="mainPalette.darkBlue"/>
 
-            <StyledButton title="My Profile" onClick={() => {}} color="mainPalette.white" textColor="mainPalette.darkBlue"/>
+            <StyledButton title="My Profile" onClick={() => navigate("/profile")} color="mainPalette.white" textColor="mainPalette.darkBlue"/>
         </Box>
     </Box>
   );
