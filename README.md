@@ -1,4 +1,4 @@
-# [Quiz App]
+cd# [Quiz App]
 An web application to take and make quizzes for any topics. Testing task from NT20H (Test task INT20H). [Visit app](http://13.60.96.236:5173)
 
 ## Information
@@ -28,7 +28,19 @@ node.js -v:
 python 3.12.3
 
 Set up frontend:
+
+In folder frontend in file "vite.config.host" delete:
+```
+server: {
+    host: '0.0.0.0',
+    port: 5173,
+  },
+```
+Now it will run on your localhost
+
+
 ```bash
-cd 
+cd frontend
 npm install
+npm run dev
 ```
