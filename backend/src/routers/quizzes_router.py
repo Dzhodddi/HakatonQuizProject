@@ -1,4 +1,3 @@
-
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import select
@@ -8,7 +7,7 @@ from fastapi.responses import JSONResponse
 from constants import WEBSOCKET_LOG_DIR
 from database import get_sync_db_session
 from models import Slides, Quizzes, QuizRating
-from schemas import CreateSlides, CreateQuizzes, RatingQuizzes
+from schemas import CreateQuizzes, RatingQuizzes
 
 quizzes_router = APIRouter()
 

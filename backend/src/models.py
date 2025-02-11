@@ -1,7 +1,7 @@
 import datetime
-from typing import Annotated, Optional
+from typing import Annotated
 from sqlalchemy import UniqueConstraint, ForeignKey, text
-from sqlalchemy.orm import mapped_column, Mapped, DeclarativeBase, relationship
+from sqlalchemy.orm import mapped_column, Mapped, relationship
 
 from database import Base
 
