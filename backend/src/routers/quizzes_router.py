@@ -1,3 +1,5 @@
+import asyncio
+
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import select
@@ -15,7 +17,7 @@ quizzes_router = APIRouter()
 
 
 @quizzes_router.post("/create_quiz")
-def create_quiz(creds: CreateQuizzes, database: Session = Depends(get_sync_db_session)):
+async def create_quiz(creds: CreateQuizzes, database: Session = Depends(get_sync_db_session)):
     try:
         json_data = jsonable_encoder(creds)
         new_quiz = Quizzes(
@@ -25,7 +27,7 @@ def create_quiz(creds: CreateQuizzes, database: Session = Depends(get_sync_db_se
         )
         database.add(new_quiz)
 
-        send_messages()
+        asyncio.run(send_messages())
 
         database.commit()
         for idx, slide in enumerate(json_data['slides']):

@@ -1,3 +1,4 @@
+import asyncio
 import os
 from typing import Type
 
@@ -17,7 +18,7 @@ user_router = APIRouter()
 
 
 @user_router.post("/register")
-def register_users(creds: RegisterUserEmail, database: Session = Depends(get_sync_db_session)):
+async def register_users(creds: RegisterUserEmail, database: Session = Depends(get_sync_db_session)):
 
     try:
         new_user = Users(
@@ -37,7 +38,7 @@ def register_users(creds: RegisterUserEmail, database: Session = Depends(get_syn
 
 
 @user_router.post("/login")
-def login_users(creds: LoginUserEmail, database: Session = Depends(get_sync_db_session)):
+async def login_users(creds: LoginUserEmail, database: Session = Depends(get_sync_db_session)):
     subquery = (
         select(
             Users
@@ -70,7 +71,7 @@ def login_users(creds: LoginUserEmail, database: Session = Depends(get_sync_db_s
 
 
 @user_router.patch("/update_users/{userId}")
-def update_users(userId: int, creds: UpdateProfile, database: Session = Depends(get_sync_db_session)):
+async def update_users(userId: int, creds: UpdateProfile, database: Session = Depends(get_sync_db_session)):
     user = get_and_check_user(userId, database)
 
     user.first_name = creds.new_first_name
@@ -90,7 +91,7 @@ def update_users(userId: int, creds: UpdateProfile, database: Session = Depends(
 
 
 @user_router.delete("/delete_user/{userId}")
-def delete_users(userId: int, creds: DeleteUser, database: Session = Depends(get_sync_db_session)):
+async def delete_users(userId: int, creds: DeleteUser, database: Session = Depends(get_sync_db_session)):
     user = get_and_check_user(userId, database)
     logo_path: str = f"{IMAGES_DIR}logo_{userId}.jpg"
     if os.path.exists(logo_path):
@@ -106,7 +107,7 @@ def delete_users(userId: int, creds: DeleteUser, database: Session = Depends(get
     try:
         database.delete(user)
         database.commit()
-        send_messages()
+        asyncio.run(send_messages())
         return {"success" : True}
     except Exception as e:
         raise HTTPException(
@@ -116,7 +117,7 @@ def delete_users(userId: int, creds: DeleteUser, database: Session = Depends(get
 
 
 @user_router.get("/users/{userId}", )
-def get_user(userId: int, database: Session = Depends(get_sync_db_session)) -> dict:
+async def get_user(userId: int, database: Session = Depends(get_sync_db_session)) -> dict:
     user = get_and_check_user(userId, database)
     quizzes_history: set = set()
 
