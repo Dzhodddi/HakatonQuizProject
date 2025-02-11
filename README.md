@@ -51,7 +51,7 @@ Create new directory and use commands:
 
 ## Set up backend
 
-Return to root directory using ```cd .. ```  then go to the "backend" directory using ```cd backend```.
+Go to the "backend" directory using ```cd backend```.
 
 
 Create virtual enviroment uisng command ```python3 -m venv .venv``` or create it manually using IDE Settings -> Project -> Python Interpreter -> Add interpreter -> Add Local interpreter.
