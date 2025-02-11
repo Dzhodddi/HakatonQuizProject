@@ -57,8 +57,9 @@ npm run dev
 
 Set up backend:
 
-Return to root directory using ```bash cd ..``` then go to the "backend" directory using ```bash cd backend```
-Create virtual enviroment uisng command ```bash python3 -m venv .venv``` or create it manually using IDE Settings -> Project -> Python Interpreter -> Add interpreter -> Add Local interpreter
-Change project structure: remove content entry and than choose directory "backend" as Content Root
+Return to root directory using ```bash cd ..``` then go to the "backend" directory using ```bash cd backend```.
+Create virtual enviroment uisng command ```bash python3 -m venv .venv``` or create it manually using IDE Settings -> Project -> Python Interpreter -> Add interpreter -> Add Local interpreter.
+Change project structure: remove content entry and than choose directory "backend" as Content Root.
+
 
 Now install all requirements: ```bash pip install -r requirements.txt" 
