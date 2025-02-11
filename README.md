@@ -24,8 +24,18 @@ Frontend:
 ##Usage
 Requirements:
 
-node.js -v:
+node.js
 python 3.12.3
+npm
+pip
+
+To install:
+```bash
+sudo apt python 3.12
+sudo install nodejs
+sudo install npm
+sudo apt-get install python3-pip
+```
 
 Set up frontend:
 
@@ -44,3 +54,7 @@ cd frontend
 npm install
 npm run dev
 ```
+
+Set up backend:
+
+Return to root directory using ```bash cd ..``` then go to the "backend" directory using ```bash cd backend```
