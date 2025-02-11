@@ -31,7 +31,7 @@ npm
 pip
 
 To install:
-```bash
+```
 sudo apt python 3.12
 sudo install nodejs
 sudo install npm
@@ -50,7 +50,7 @@ server: {
 Now it will run on your localhost
 
 To run application use this commands:
-```bash
+```
 cd frontend
 npm install
 npm run dev
@@ -59,19 +59,19 @@ In frontend directory create file with name .env and add this ```VITE_API_BASE_U
 
 ## Set up backend
 
-Return to root directory using ```bash cd .. ```  then go to the "backend" directory using ```bash cd backend```.
+Return to root directory using ```cd .. ```  then go to the "backend" directory using ```cd backend```.
 
 
-Create virtual enviroment uisng command ```bash python3 -m venv .venv``` or create it manually using IDE Settings -> Project -> Python Interpreter -> Add interpreter -> Add Local interpreter.
+Create virtual enviroment uisng command ```python3 -m venv .venv``` or create it manually using IDE Settings -> Project -> Python Interpreter -> Add interpreter -> Add Local interpreter.
 
 
 Change project structure: remove content entry and than choose directory "backend" as Content Root.
 
 
-Activate virtual enviroment using: ```bash source .venv/bin/activate``` on Linux or ``` bash .\.venv\Scripts\activate``` on Windows
+Activate virtual enviroment using: ```source .venv/bin/activate``` on Linux or ``` .\.venv\Scripts\activate``` on Windows
 
 
-Now install all requirements: ```bash pip install -r requirements.txt" ```
+Now install all requirements: ```pip install -r requirements.txt" ```
 
 Back to "backend" directory and go to "src" directory
 
