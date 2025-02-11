@@ -37,25 +37,9 @@ sudo install nodejs
 sudo install npm
 sudo apt-get install python3-pip
 ```
+## Set up project
 
-### Set up frontend
-
-In folder frontend in file "vite.config.host" delete:
-```
-server: {
-    host: '0.0.0.0',
-    port: 5173,
-  },
-```
-Now it will run on your localhost
-
-To run application use this commands:
-```
-cd frontend
-npm install
-npm run dev
-```
-In frontend directory create file with name .env and add this ```VITE_API_BASE_URL="http://127.0.0.1:8000"```
+Create new directory and use command: ```git pull https://github.com/Dzhodddi/HakatonQuizProject.git"
 
 ## Set up backend
 
@@ -76,3 +60,23 @@ Now install all requirements: ```pip install -r requirements.txt" ```
 Back to "backend" directory and go to "src" directory
 
 Run python
+
+
+### Set up frontend
+
+In folder frontend in file "vite.config.host" delete:
+```
+server: {
+    host: '0.0.0.0',
+    port: 5173,
+  },
+```
+Now it will run on your localhost
+
+To run application use this commands:
+```
+cd frontend
+npm install
+npm run dev
+```
+In frontend directory create file with name .env and add this ```VITE_API_BASE_URL="http://127.0.0.1:8000"```
