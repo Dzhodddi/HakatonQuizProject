@@ -71,3 +71,7 @@ Activate virtual enviroment using: ```bash source .venv/bin/activate``` on Linux
 
 
 Now install all requirements: ```bash pip install -r requirements.txt" ```
+
+Back to "backend" directory and go to "src" directory
+
+Run python
