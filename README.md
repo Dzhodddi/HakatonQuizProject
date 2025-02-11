@@ -20,3 +20,15 @@ Frontend:
 2. Vite
 3. React
 4. Material UI
+
+##Usage
+Requirements:
+
+node.js -v:
+python 3.12.3
+
+Set up frontend:
+```bash
+cd 
+npm install
+```
