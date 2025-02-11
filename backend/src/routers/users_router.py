@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 from constants import SALT, IMAGES_DIR, WEBSOCKET_LOG_DIR
 from database import get_sync_db_session
 from models import Users
+from routers.websocket_router import send_messages
 from schemas import RegisterUserEmail, LoginUserEmail, UpdateProfile, DeleteUser
 
 user_router = APIRouter()
@@ -105,8 +106,7 @@ def delete_users(userId: int, creds: DeleteUser, database: Session = Depends(get
     try:
         database.delete(user)
         database.commit()
-        with open(f"{WEBSOCKET_LOG_DIR}ws.log", "w") as f:
-            f.write("Updated")
+        send_messages()
         return {"success" : True}
     except Exception as e:
         raise HTTPException(
@@ -124,6 +124,7 @@ def get_user(userId: int, database: Session = Depends(get_sync_db_session)) -> d
     for ratings in user.rating_list:
         if ratings.quizzes is not None:
             quizzes_history.add(ratings.quizzes)
+            print(ratings.rating)
 
 
     quiz_history = [f'You completed {quiz.id} quiz' for quiz in quizzes_history]

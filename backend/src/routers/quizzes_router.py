@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 from constants import WEBSOCKET_LOG_DIR
 from database import get_sync_db_session
 from models import Slides, Quizzes, QuizRating
+from routers.websocket_router import send_messages
 from schemas import CreateQuizzes, RatingQuizzes
 
 quizzes_router = APIRouter()
@@ -24,8 +25,7 @@ def create_quiz(creds: CreateQuizzes, database: Session = Depends(get_sync_db_se
         )
         database.add(new_quiz)
 
-        with open(f"{WEBSOCKET_LOG_DIR}ws.log", "w") as f:
-            f.write("Updated")
+        send_messages()
 
         database.commit()
         for idx, slide in enumerate(json_data['slides']):
@@ -49,7 +49,6 @@ def create_quiz(creds: CreateQuizzes, database: Session = Depends(get_sync_db_se
 @quizzes_router.get("/quiz_description/{quizId}")
 def get_quiz_description(quizId: int, database: Session = Depends(get_sync_db_session)):
     quiz = get_and_check_quiz(quizId, database)
-    print(quiz.rating_list)
     try:
         rating_list: float = round(sum([ratings.rating for ratings in quiz.rating_list]) / len(quiz.rating_list), 2 )
     except ZeroDivisionError:
