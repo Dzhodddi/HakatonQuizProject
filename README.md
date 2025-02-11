@@ -70,4 +70,4 @@ Change project structure: remove content entry and than choose directory "backen
 Activate virtual enviroment using: ```bash source .venv/bin/activate``` on Linux or ``` bash .\.venv\Scripts\activate``` on Windows
 
 
-Now install all requirements: ```bash pip install -r requirements.txt" 
+Now install all requirements: ```bash pip install -r requirements.txt" ```
