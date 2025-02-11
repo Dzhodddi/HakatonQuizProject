@@ -144,7 +144,7 @@ async def update_file(userId: int, new_file: UploadFile = File(), database: Sess
 
     return {"success": True}
 
-@user_router.post("/get_logo/{userId}")
+@user_router.get("/get_logo/{userId}")
 async def get_logo(userId: int,  database: Session = Depends(get_sync_db_session)):
     get_and_check_user(userId, database)
     files = os.listdir(IMAGES_DIR)
