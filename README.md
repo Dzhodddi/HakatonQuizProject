@@ -21,8 +21,9 @@ Frontend:
 3. React
 4. Material UI
 
-##Usage
-Requirements:
+### Usage
+
+## Requirements
 
 node.js
 python 3.12.3
@@ -37,7 +38,7 @@ sudo install npm
 sudo apt-get install python3-pip
 ```
 
-Set up frontend:
+### Set up frontend
 
 In folder frontend in file "vite.config.host" delete:
 ```
@@ -55,12 +56,14 @@ npm install
 npm run dev
 ```
 
-Set up backend:
+### Set up backend
 
-Return to root directory using ```bash cd ..``` then go to the "backend" directory using ```bash cd backend```.
-Create virtual enviroment uisng command ```bash python3 -m venv .venv``` or create it manually using IDE Settings -> Project -> Python Interpreter -> Add interpreter -> Add Local interpreter.
-Change project structure: remove content entry and than choose directory "backend" as Content Root.
-Activate virtual enviroment using: ```bash source .venv/bin/activate``` on Linux or ``` bash .\.venv\Scripts\activate``` on Windows
+    1. Return to root directory using ```bash cd ..``` then go to the "backend" directory using ```bash cd backend```.
+    2.Create virtual enviroment uisng command ```bash python3 -m venv .venv``` or create it manually using IDE Settings -> Project -> Python Interpreter -> Add interpreter -> Add Local interpreter.
+    3. Change project structure: remove content entry and than choose directory "backend" as Content Root.
+    4. Activate virtual enviroment using: ```bash source .venv/bin/activate``` on Linux or ``` bash .\.venv\Scripts\activate``` on Windows
+
+
 
 
 Now install all requirements: ```bash pip install -r requirements.txt" 
