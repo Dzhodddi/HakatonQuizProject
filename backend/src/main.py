@@ -3,7 +3,6 @@ from fastapi import FastAPI, __version__
 from fastapi.middleware.cors import CORSMiddleware
 import models
 from database import sync_engine
-from routers.websocket_router import ws_router
 from routers.quizzes_router import quizzes_router
 from routers.users_router import user_router
 
