@@ -9,8 +9,8 @@ from sqlalchemy.orm import Session
 
 from constants import SALT, IMAGES_DIR, WEBSOCKET_LOG_DIR
 from database import get_sync_db_session
+from main import send_messages
 from models import Users
-from routers.websocket_router import send_messages
 from schemas import RegisterUserEmail, LoginUserEmail, UpdateProfile, DeleteUser
 
 user_router = APIRouter()

@@ -4,10 +4,9 @@ from sqlalchemy import select
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session, selectinload
 from fastapi.responses import JSONResponse
-from constants import WEBSOCKET_LOG_DIR
 from database import get_sync_db_session
+from main import send_messages
 from models import Slides, Quizzes, QuizRating
-from routers.websocket_router import send_messages
 from schemas import CreateQuizzes, RatingQuizzes
 
 quizzes_router = APIRouter()

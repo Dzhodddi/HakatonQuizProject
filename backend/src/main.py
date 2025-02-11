@@ -1,3 +1,4 @@
+import websockets
 from fastapi import FastAPI, __version__
 from fastapi.middleware.cors import CORSMiddleware
 import models
@@ -10,6 +11,11 @@ from routers.users_router import user_router
 # models.Base.metadata.drop_all(sync_engine)
 models.Base.metadata.create_all(bind=sync_engine)
 app = FastAPI()
+
+def send_messages():
+    uri = "ws://localhost:8765"
+    with websockets.connect(uri) as websocket:
+        websocket.send("Updated")
 
 
 origins = [
