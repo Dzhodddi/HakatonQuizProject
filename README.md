@@ -55,7 +55,7 @@ cd frontend
 npm install
 npm run dev
 ```
-In frontend directory create file with name .env and add this ```bash VITE_API_BASE_URL="http://127.0.0.1:8000"```
+In frontend directory create file with name .env and add this ```VITE_API_BASE_URL="http://127.0.0.1:8000"```
 
 ## Set up backend
 
