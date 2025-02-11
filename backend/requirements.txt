@@ -10,3 +10,6 @@ bcrypt==4.2.1
 authx==1.4.1
 aiosqlite==0.21.0
 authx==1.4.1
+PyJWT==2.7.0
+passlib==1.7.4
+starlette==0.45.3
