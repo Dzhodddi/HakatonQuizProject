@@ -38,7 +38,7 @@ server: {
 ```
 Now it will run on your localhost
 
-
+To run application use this commands:
 ```bash
 cd frontend
 npm install
