@@ -1,4 +1,4 @@
-# Quiz App
+# Quiz App(13.60.96.236:5173:)
 An web application to take and make quizzes for any topics. Testing task from NT20H (Test task INT20H).
 
 ## Information
@@ -8,7 +8,7 @@ An web application to take and make quizzes for any topics. Testing task from NT
 Backend:
 1. Python 3.12
 2. FastAPI
-3. SQL (sqlite)
+3. SQL (sqlite3)
 4. SQLAlchemy
 5. Git
 6. Nginx
