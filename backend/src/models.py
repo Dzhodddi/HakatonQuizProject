@@ -56,10 +56,11 @@ class Slides(Base):
     quiz_id: Mapped[int] = mapped_column(ForeignKey("quizzes.id", ondelete="CASCADE"))
     answer_id: Mapped[int]
     slide_id: Mapped[int]
-    question1: Mapped[str]
-    question2: Mapped[str]
-    question3: Mapped[str]
-    question4: Mapped[str]
+    question: Mapped[str]
+    answer1: Mapped[str]
+    answer2: Mapped[str]
+    answer3: Mapped[str]
+    answer4: Mapped[str]
     useless_id: Mapped[intpk]
 
     quiz: Mapped["Quizzes"] = relationship(back_populates="slides_list")

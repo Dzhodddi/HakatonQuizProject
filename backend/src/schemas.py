@@ -51,10 +51,11 @@ class UserImage(BaseModel):
 class CreateSlides(BaseModel):
     id: int
     answer_id: int
-    question1: str = Field(..., min_length=1, max_length=50)
-    question2: str = Field(default="", min_length=0, max_length=50, )
-    question3: str = Field(default="", min_length=0, max_length=50)
-    question4: str = Field(default="", min_length=0, max_length=50)
+    question: str = Field(..., min_length=1, max_length=50)
+    answer1: str = Field(..., min_length=1, max_length=50)
+    answer2: str = Field(default="", min_length=0, max_length=50)
+    answer3: str = Field(default="", min_length=0, max_length=50)
+    answer4: str = Field(default="", min_length=0, max_length=50)
 
 
 

@@ -9,7 +9,7 @@ from database import sync_engine
 from routers.websocket_router import ws_router
 from routers.quizzes_router import quizzes_router
 from routers.users_router import user_router
-
+#
 # models.Base.metadata.drop_all(sync_engine)
 # models.Base.metadata.create_all(bind=sync_engine)
 app = FastAPI()

@@ -19,7 +19,6 @@ def root():
 
 @quizzes_router.post("/create_quiz")
 def create_quiz(creds: CreateQuizzes, database: Session = Depends(get_sync_db_session)):
-
     try:
         json_data = jsonable_encoder(creds)
         new_quiz = Quizzes(
@@ -38,10 +37,11 @@ def create_quiz(creds: CreateQuizzes, database: Session = Depends(get_sync_db_se
                 quiz_id = new_quiz.id,
                 answer_id = slide['answer_id'],
                 slide_id = idx + 1,
-                question1= slide['question1'],
-                question2= slide['question2'],
-                question3= slide['question3'],
-                question4= slide['question4']
+                question = slide["question"],
+                answer1= slide['answer1'],
+                answer2= slide['answer2'],
+                answer3= slide['answer3'],
+                answer4= slide['answer4']
             )
             database.add(new_slide)
         database.commit()
@@ -69,11 +69,12 @@ def get_quiz_json(quizId: int, database: Session = Depends(get_sync_db_session))
     for slide in quiz.slides_list:
         slide_list.append( {
             "id": slide.slide_id,
+            "question": slide.question,
             "answer_id": slide.answer_id,
-            "question1": slide.question1,
-            "question2": slide.question2,
-            "question3": slide.question3,
-            "question4": slide.question4
+            "answer1": slide.answer1,
+            "answer2": slide.answer2,
+            "answer3": slide.answer3,
+            "answer4": slide.answer4
         })
     dict_response:dict = {
         "author_id":  quiz.author_id,
@@ -107,6 +108,7 @@ def rate_quiz(creds: RatingQuizzes, database: Session = Depends(get_sync_db_sess
     try:
         database.add(new_rating)
         database.commit()
+        return {"success": True}
     except Exception as error:
         raise HTTPException(status_code=500, detail=str(error))
 
