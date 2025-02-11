@@ -37,6 +37,38 @@ sudo install nodejs
 sudo install npm
 sudo apt-get install python3-pip
 ```
+## Set up project
+
+Create new directory and use commands: 
+
+```git init```
+
+```git branch -M main```
+
+```git remote add origin https://github.com/Dzhodddi/HakatonQuizProject.git```
+
+```git pull https://github.com/Dzhodddi/HakatonQuizProject.git ```
+
+## Set up backend
+
+Go to the "backend" directory using ```cd backend```.
+
+
+Create virtual enviroment uisng command ```python3 -m venv .venv``` or create it manually using IDE Settings -> Project -> Python Interpreter -> Add interpreter -> Add Local interpreter.
+
+
+Change project structure: remove content entry and than choose directory "backend" as Content Root.
+
+
+Activate virtual enviroment using: ```source .venv/bin/activate``` on Linux or ``` .\.venv\Scripts\activate``` on Windows
+
+
+Now install all requirements: ```pip install -r requirements.txt ```
+
+Back to "backend" directory and go to "src" directory
+
+Run ```uvicorn main:app```
+
 
 ### Set up frontend
 
@@ -51,28 +83,8 @@ Now it will run on your localhost
 
 To run application use this commands:
 ```
-cd frontend
+cd frontend:
 npm install
 npm run dev
 ```
 In frontend directory create file with name .env and add this ```VITE_API_BASE_URL="http://127.0.0.1:8000"```
-
-## Set up backend
-
-Return to root directory using ```cd .. ```  then go to the "backend" directory using ```cd backend```.
-
-
-Create virtual enviroment uisng command ```python3 -m venv .venv``` or create it manually using IDE Settings -> Project -> Python Interpreter -> Add interpreter -> Add Local interpreter.
-
-
-Change project structure: remove content entry and than choose directory "backend" as Content Root.
-
-
-Activate virtual enviroment using: ```source .venv/bin/activate``` on Linux or ``` .\.venv\Scripts\activate``` on Windows
-
-
-Now install all requirements: ```pip install -r requirements.txt" ```
-
-Back to "backend" directory and go to "src" directory
-
-Run python
