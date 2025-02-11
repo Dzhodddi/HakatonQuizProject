@@ -32,7 +32,6 @@ app.add_middleware(
 app.include_router(user_router, tags=["Users"])
 #, prefix="/api/quizzes"
 app.include_router(quizzes_router, tags = ["Quizzes"])
-app.include_router(ws_router, tags=["Ws APIs"])
 @app.get("/", tags=["Services"], summary="Get version of FastAPI")
 def get_version():
     return {"version": __version__}
