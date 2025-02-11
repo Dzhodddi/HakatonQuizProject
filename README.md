@@ -63,11 +63,11 @@ Change project structure: remove content entry and than choose directory "backen
 Activate virtual enviroment using: ```source .venv/bin/activate``` on Linux or ``` .\.venv\Scripts\activate``` on Windows
 
 
-Now install all requirements: ```pip install -r requirements.txt" ```
+Now install all requirements: ```pip install -r requirements.txt ```
 
 Back to "backend" directory and go to "src" directory
 
-Run python
+Run ```uvicorn main:app```
 
 
 ### Set up frontend
@@ -83,7 +83,7 @@ Now it will run on your localhost
 
 To run application use this commands:
 ```
-cd frontend
+cd frontend:
 npm install
 npm run dev
 ```
