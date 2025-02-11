@@ -58,3 +58,4 @@ npm run dev
 Set up backend:
 
 Return to root directory using ```bash cd ..``` then go to the "backend" directory using ```bash cd backend```
+Create virtual enviroment uisng command ```bash python3 -m venv .venv```p
