@@ -13,9 +13,6 @@ from schemas import CreateSlides, CreateQuizzes, RatingQuizzes
 quizzes_router = APIRouter()
 
 
-@quizzes_router.get("/")
-def root():
-    return {"Message": "Hello World"}
 
 @quizzes_router.post("/create_quiz")
 def create_quiz(creds: CreateQuizzes, database: Session = Depends(get_sync_db_session)):

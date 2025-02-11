@@ -8,12 +8,14 @@ export const basicTheme = createTheme({
   palette: {
     mainPalette: {
         black: "#000",
-        gray: "#F4F4F6",
+        gray: "#9E9E9E",
         white: "#FFF",
         yellow: "#FFD700",
         blue: "#93bbfa",
         darkBlue: "#0241a6",
         lightBlue: "#d4e3fa",
+        red: "#ab2424",
+        green: "#4caf50",
     },
   },
   typography: {

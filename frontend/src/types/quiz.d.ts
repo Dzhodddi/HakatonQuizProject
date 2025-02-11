@@ -9,14 +9,10 @@ export type QuizType = {
 };
 
 export type QuestionType = {
-    id: number;
     title: string;
-    type: "single" | "multiple";
-    options: OptionType[];
-};
-
-export type OptionType = {
-    id: number;
-    title: string;
-    is_correct: boolean;
+    option1: string;
+    option2: string;
+    option3: string;
+    option4: string;
+    correct_option: number;
 };

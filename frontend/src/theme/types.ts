@@ -9,6 +9,8 @@ declare module "@mui/material/styles" {
     blue: string;
     darkBlue: string;
     lightBlue: string;
+    red: string;
+    green: string;
   }
   /*interface AccentPaletteColorOptions {
 

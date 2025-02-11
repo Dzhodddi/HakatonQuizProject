@@ -5,12 +5,18 @@ import { StyledButton } from 'src/UI/StyledButton';
 import { CustomTextField } from 'src/UI/CustomTextField';
 import { CustomBox } from 'src/UI/CustomBox';
 import { styles } from './styles';
+import { useNavigate } from 'react-router-dom';
+import { useNewQuiz } from '../../store/useNewQuiz';
+import { dummyUser } from 'src/modules/Quizzes/constants';
 
 export interface CreateQuizSectionProps {}
 
 export const CreateQuizSection: FC<CreateQuizSectionProps> = memo(() => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [titleError, setTitleError] = useState("");
+    const navigate = useNavigate();
+    const { setNewQuiz } = useNewQuiz();
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
@@ -20,17 +26,36 @@ export const CreateQuizSection: FC<CreateQuizSectionProps> = memo(() => {
         setDescription(event.target.value);
     };
 
+    const onAddQuestionsClick = () => {
+        if (title === "") {
+            setTitleError("Title is required");
+            return;
+        }
+
+        setTitleError("");
+
+        setNewQuiz({
+            id: 0,
+            title,
+            description,
+            author: dummyUser,
+            questions: [],
+        });
+
+        navigate("/create-quiz/questions");
+    };
+
   return (
-        <CustomBox style={styles.root}>
+        <CustomBox>
             <Typography variant="h1">Create Quiz</Typography>
 
             <Box sx={styles.textFieldGroup}>
-                <CustomTextField label="Title" value={title} onChange={handleTitleChange}/>
+                <CustomTextField label="Title" value={title} onChange={handleTitleChange} error={titleError !== ""} errorText={titleError} maxLength={25} />
 
-                <CustomTextField label="Description" value={description} isMultiline={true} onChange={handleDescriptionChange} />
+                <CustomTextField label="Description" value={description} isMultiline={true} onChange={handleDescriptionChange} maxLength={100} />
             </Box>
 
-            <StyledButton title="Add question" onClick={()=>{}} />
+            <StyledButton title="Add questions" onClick={onAddQuestionsClick} />
         </CustomBox>
   );
 });

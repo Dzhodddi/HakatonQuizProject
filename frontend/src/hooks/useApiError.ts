@@ -6,7 +6,7 @@ export const useApiError = () => {
 
   const handleError = (error) => {
     if (error instanceof AxiosError) {
-      setApiError(error.message);
+      setApiError(error.response?.data.detail || "Sorry! An error occurred");
     } else {
       setApiError("Sorry! An error occurred");
     }

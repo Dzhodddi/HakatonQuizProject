@@ -1,0 +1,1 @@
+export { QuizResultsSection } from './components/QuizResultsSection';

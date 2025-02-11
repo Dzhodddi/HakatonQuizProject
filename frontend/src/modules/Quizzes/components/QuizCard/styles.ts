@@ -1,7 +1,7 @@
 export const styles = {
     root: {
-        width: 200,
-        height: 200,
+        width: 250,
+        height: 250,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -18,11 +18,6 @@ export const styles = {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-    },
-    image: {
-        width: 200,
-        height: 200,
-        objectFit: "cover",
-        borderRadius: 2,
+        gap: 2,
     },
 };

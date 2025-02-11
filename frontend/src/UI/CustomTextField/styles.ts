@@ -25,7 +25,7 @@ export const styles = {
    halfTextField: {
     width: {
         xs: "100%",
-        sm: "35%",
+        sm: "50%",
     },
 },
 };
