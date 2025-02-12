@@ -26,6 +26,7 @@ class Users(Base):
         cascade="delete",
         primaryjoin="Users.id == rating.c.guest_id",
         secondaryjoin="QuizRating.guest_id == users.c.id",
+        viewonly=True,
     )
 
 class Quizzes(Base):
@@ -47,7 +48,8 @@ class Quizzes(Base):
         cascade="delete",
         primaryjoin="Quizzes.id == rating.c.quiz_id",
         secondaryjoin="QuizRating.quiz_id == quizzes.c.id",
-        order_by="QuizRating.completed_at.asc()"
+        order_by="QuizRating.completed_at.asc()",
+        viewonly=True,
     )
 
 
