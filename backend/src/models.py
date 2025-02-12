@@ -24,7 +24,7 @@ class Users(Base):
         secondary="rating",
         back_populates="users",
         cascade="delete",
-        primaryjoin="Users.id == QuizRating.c.guest_id",
+        primaryjoin="Users.id == rating.c.guest_id",
         secondaryjoin="QuizRating.guest_id == users.c.id",
     )
 
@@ -77,5 +77,5 @@ class QuizRating(Base):
     rating: Mapped[int]
     completed_at: Mapped[datetime.datetime] = mapped_column(default=text("datetime()"))
 
-    users: Mapped[list["Users"]] = relationship("Users", back_populates="rating_list")
+    users: Mapped[list["Users"]] = relationship("Users",back_populates="rating_list")
     quizzes: Mapped[list["Quizzes"]] = relationship("Quizzes",back_populates="rating_list")
