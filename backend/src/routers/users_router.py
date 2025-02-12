@@ -64,7 +64,7 @@ async def login_users(creds: LoginUserEmail, database: Session = Depends(get_syn
     except NoResultFound:
         raise HTTPException(
             status_code=404,
-            detail="NoResultFound",
+            detail="No user with this email",
     )
 
 
