@@ -1,11 +1,11 @@
-import asyncio
-
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import select
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session, selectinload
 from fastapi.responses import JSONResponse
+
+from constants import WEBSOCKET_LOG_DIR
 from database import get_sync_db_session
 
 from models import Slides, Quizzes, QuizRating
