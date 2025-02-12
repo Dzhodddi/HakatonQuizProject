@@ -79,5 +79,5 @@ class QuizRating(Base):
     rating: Mapped[int]
     completed_at: Mapped[datetime.datetime] = mapped_column(default=text("datetime()"))
 
-    users: Mapped[list["Users"]] = relationship("Users",back_populates="rating_list")
-    quizzes: Mapped[list["Quizzes"]] = relationship("Quizzes",back_populates="rating_list")
+    users: Mapped[list["Users"]] = relationship("Users",back_populates="rating_list", cascade="all, delete")
+    quizzes: Mapped[list["Quizzes"]] = relationship("Quizzes",back_populates="rating_list", cascade="all, delete")
