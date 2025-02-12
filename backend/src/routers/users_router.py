@@ -95,7 +95,7 @@ async def delete_users(userId: int, creds: DeleteUser, database: Session = Depen
     logo_path: str = f"{IMAGES_DIR}logo_{userId}.jpg"
     if os.path.exists(logo_path):
         os.remove(logo_path)
-    user_password = hash(creds.password + SALT())
+    user_password = bytes(creds.password + SALT(), 'utf-8')
     if user_password != user.password_hash:
         raise HTTPException(
             status_code=404,
