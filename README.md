@@ -14,6 +14,7 @@ Backend:
 6. Nginx
 7. EC2
 8. uvicorn
+9. WebSockets for live updating
 
 Frontend:
 1. TypeScript
