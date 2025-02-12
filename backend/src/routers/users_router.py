@@ -156,13 +156,20 @@ async def get_logo(userId: int,  database: Session = Depends(get_sync_db_session
     return {"path": f"{IMAGES_DIR}default_logo.jpg"}
 
 
-def get_and_check_user(userId: int, database: Session = Depends(get_sync_db_session)) -> Type[Users]:
-    user = database.get(Users, userId)
+def get_and_check_user(userId: int, database: Session = Depends(get_sync_db_session)) -> Users:
+    query = (
+        select(Users)
+        .filter(Users.id == userId)
+    )
 
-    if not user:
+    res = database.execute(query)
+    try:
+        user = res.scalars().one()
+        return user
+    except NoResultFound:
         raise HTTPException(
             status_code=404,
             detail="User doesn't exist",
         )
-
-    return user
+    except Exception as error:
+        raise HTTPException(status_code=500, detail=str(error))
