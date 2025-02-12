@@ -24,7 +24,7 @@ class Users(Base):
         secondary="rating",
         back_populates="users",
         cascade="delete",
-        primaryjoin="Users.id == QuizRating.c.guest_id",
+        primaryjoin="Users.id == QuizRating.guest_id",
         # secondaryjoin="QuizRating.guest_id == users.c.id",
     )
 
