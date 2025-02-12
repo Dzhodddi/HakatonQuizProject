@@ -8,6 +8,7 @@ export const useProfileData = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [photo, setPhoto] = useState<string>("");
   const { password } = useUserStore();
+  const [quizHistory, setQuizHistory] = useState<string[]>([]);
 
   const getLogo = useCallback(async (userId: number) => {
     setLoading(true);
@@ -32,6 +33,17 @@ export const useProfileData = () => {
     }
   }, []);
 
+  const getQuizHistory = useCallback(async (userId: number) => {
+    try {
+      const response = await profileApi.getUserQuizHistory(userId);
+      console.log(response.quiz_history);
+      setQuizHistory(response.quiz_history);
+    } catch (error) {
+      console.log(error);
+      handleError(error);
+    }
+  }, []);
+
   const postLogo = useCallback(async (userId: number, file: File) => {
     try {
       await profileApi.postLogo(userId, file);
@@ -41,5 +53,5 @@ export const useProfileData = () => {
     }
   }, []);
 
-  return { photo, apiError, loading, getLogo, postLogo, deleteAccount };
+  return { photo, apiError, loading, getLogo, postLogo, deleteAccount, quizHistory, getQuizHistory };
 };

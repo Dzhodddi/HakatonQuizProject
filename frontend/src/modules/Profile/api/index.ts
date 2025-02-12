@@ -39,6 +39,15 @@ const profileApi = {
       throw error;
     }
   },
+  getUserQuizHistory: async (userId: number) => {
+    try {
+      const response = await api.get(`users/${userId}`);
+
+      return response.data as { quiz_history: string[]};
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 export default profileApi;

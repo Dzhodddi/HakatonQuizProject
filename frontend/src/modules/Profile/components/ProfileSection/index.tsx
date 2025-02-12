@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { FC, memo, useEffect, useState} from 'react';
 
 import { CustomBox } from 'src/UI/CustomBox';
@@ -15,7 +15,7 @@ export interface ProfileSectionProps {}
 
 export const ProfileSection: FC<ProfileSectionProps> = memo(() => {
     const { user } = useUserStore();
-    const { photo, getLogo, loading, deleteAccount, postLogo } = useProfileData();
+    const { photo, getLogo, loading, deleteAccount, getQuizHistory, quizHistory } = useProfileData();
     const navigate = useNavigate();
 
     const onDeleteAccount = async () => {
@@ -25,14 +25,9 @@ export const ProfileSection: FC<ProfileSectionProps> = memo(() => {
         }
     };
 
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files.length > 0) {
-            void postLogo(Number(user.id), event.target.files[0]);
-        }
-    };
-
     useEffect(() => {
         void getLogo(Number(user.id));
+        void getQuizHistory(Number(user.id));
     }, [user.id]);
 
     if (loading) {
@@ -41,16 +36,21 @@ export const ProfileSection: FC<ProfileSectionProps> = memo(() => {
 
   return (
         <CustomBox style={styles.root}>
-            {photo !== "" && <img src={photo} alt="profile" style={styles.image}/>}
-
-            <Button variant="contained" color="primary" component="label">
-                Upload photo
-                <input type="file" hidden onChange={handleFileChange} />
-            </Button>
+            {photo !== "" && <img src={"https://www.pryano.com.ua/wp-content/uploads/2015/07/Profile_avatar_placeholder_large.png"} alt="profile" style={styles.image}/>}
         
-            <Typography variant="h1">{`${user.first_name} ${user.second_name}`}</Typography>
+            <Box sx={styles.personalInfo}>
+                <Typography variant="h1">{`${user.first_name} ${user.second_name}`}</Typography>
 
-            <Typography variant="h4">{user.email}</Typography>
+                <Typography variant="h4" textAlign="center">{user.email}</Typography>
+            </Box>
+
+            <Box sx={styles.history}>
+                <Typography variant="h4">Quiz history:</Typography>
+
+                {quizHistory.map((quiz, index) => (
+                    <Typography key={index} variant="h6">{quiz}</Typography>
+                ))}
+            </Box>
 
             <StyledButton title="Delete account" onClick={onDeleteAccount} color="mainPalette.red"/>
         </CustomBox>

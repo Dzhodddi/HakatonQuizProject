@@ -12,4 +12,16 @@ export const styles = {
         height: 100,
         borderRadius: "50%",
     },
+    personalInfo: {
+        display: "flex",
+        flexDirection: "column",
+        gap: 4,
+        justifyContent: "center",
+    },
+    history: {
+        display: "flex",
+        flexDirection: "column",
+        gap: 4,
+        justifyContent: "center",
+    },
 };

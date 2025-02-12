@@ -23,7 +23,7 @@ export const QuizCard: FC<QuizCardProps> = memo(({quiz}) => {
         <Box sx={styles.textContent}>
             <Box sx={styles.text}>
                 <Typography variant="h3" textAlign="center">{quiz.quiz_title}</Typography>
-                <Typography variant="h6">{quiz.quiz_author}</Typography>
+                <Typography variant="h6">{`Created by: ${quiz.quiz_author}`}</Typography>
             </Box>
             <StyledButton title="Go to Quiz" onClick={handleQuizClick} />
         </Box>

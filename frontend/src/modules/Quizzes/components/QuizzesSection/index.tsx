@@ -60,7 +60,7 @@ export const QuizzesSection: FC<QuizzesSectionProps> = memo(() => {
   if (quizzes.length === 0) {
     return (
       <Box sx={styles.root}>
-        <Typography variant="h1">No quizzes here yet</Typography>
+        <Typography variant="h1" textAlign="center">No quizzes here yet</Typography>
       </Box>
     )
   }
