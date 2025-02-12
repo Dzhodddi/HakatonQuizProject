@@ -6,7 +6,7 @@ import { useUserStore } from "../store/useUserStore";
 export const useLoginData = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const { apiError, handleError } = useApiError();
-  const { setUser } = useUserStore();
+  const { setUser, setPassword } = useUserStore();
 
   const postRegister = useCallback(async (firstName: string, lastName: string, email: string, password: string) => {
     setLoading(true);
@@ -15,6 +15,7 @@ export const useLoginData = () => {
       const response  = await loginApi.postRegister(firstName, lastName, email, password);
 
       setUser(response);
+      setPassword(password);
 
         return true;
     } catch (error) {
@@ -32,6 +33,7 @@ export const useLoginData = () => {
       const response  = await loginApi.postLogin(email, password);
 
       setUser(response);
+      setPassword(password);
 
         return true;
     } catch (error) {

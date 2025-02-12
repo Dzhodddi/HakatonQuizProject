@@ -1,5 +1,5 @@
-import { Typography } from '@mui/material';
-import { FC, memo, useEffect} from 'react';
+import { Button, Typography } from '@mui/material';
+import { FC, memo, useEffect, useState} from 'react';
 
 import { CustomBox } from 'src/UI/CustomBox';
 
@@ -15,13 +15,19 @@ export interface ProfileSectionProps {}
 
 export const ProfileSection: FC<ProfileSectionProps> = memo(() => {
     const { user } = useUserStore();
-    const { photo, getLogo, loading, deleteAccount } = useProfileData();
+    const { photo, getLogo, loading, deleteAccount, postLogo } = useProfileData();
     const navigate = useNavigate();
 
     const onDeleteAccount = async () => {
         const isDeleted = await deleteAccount(Number(user.id));
         if (isDeleted) {
             navigate("/login");
+        }
+    };
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            void postLogo(Number(user.id), event.target.files[0]);
         }
     };
 
@@ -35,7 +41,12 @@ export const ProfileSection: FC<ProfileSectionProps> = memo(() => {
 
   return (
         <CustomBox style={styles.root}>
-            {photo !== "" && <img src={photo} alt="profile" />}
+            {photo !== "" && <img src={photo} alt="profile" style={styles.image}/>}
+
+            <Button variant="contained" color="primary" component="label">
+                Upload photo
+                <input type="file" hidden onChange={handleFileChange} />
+            </Button>
         
             <Typography variant="h1">{`${user.first_name} ${user.second_name}`}</Typography>
 

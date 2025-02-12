@@ -5,6 +5,8 @@ import { persist } from 'zustand/middleware';
 interface UserState {
   user: UserType;
   setUser: (user: UserType) => void;
+  password: string;
+  setPassword: (password: string) => void;
 }
 
 export const useUserStore = create<UserState>()(
@@ -17,6 +19,8 @@ export const useUserStore = create<UserState>()(
         email: "",
       },
       setUser: (user) => set({ user }),
+      password: "",
+      setPassword: (password) => set({ password }),
     }),
     {
       name: 'user-storage',

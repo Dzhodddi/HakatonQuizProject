@@ -23,6 +23,22 @@ const profileApi = {
       throw error;
     }
   },
+  postLogo: async (userId: number, file: File) => {
+    const formData = new FormData();
+    formData.append("new_file", file);
+
+    try {
+      const response = await api.patch(`upload_logo/${userId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      return response.data as { path: string };
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 export default profileApi;

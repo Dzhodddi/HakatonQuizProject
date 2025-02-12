@@ -20,8 +20,7 @@ async def websocket_endpoint(websocket: WebSocket):
 
             message = await websocket.receive_text()
             with open(f"{WEBSOCKET_LOG_DIR}ws.log", "w") as f:
-                if message == "Clear":
-                    f.write(f"{message}")
+                f.write(f"{message}")
 
     except WebSocketDisconnect:
         print("Client disconnected")

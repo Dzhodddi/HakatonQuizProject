@@ -15,7 +15,7 @@ export const QuizzesSection: FC<QuizzesSectionProps> = memo(() => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
   useEffect(() => {
-    const ws = new WebSocket(`ws://${socketUrl}`);
+    const ws = new WebSocket(`ws://${socketUrl}/ws`);
 
     ws.onopen = () => console.log('Connected to WebSocket logs');
     
@@ -24,7 +24,10 @@ export const QuizzesSection: FC<QuizzesSectionProps> = memo(() => {
       setLogs((prevLogs) => [...prevLogs, logMessage]);
 
       if (logMessage.includes('Updated')) {
+        console.log('Fetching quizzes');
         void fetchQuizzes();
+        console.log('Quizzes fetched');
+        console.log(logs);
         socket?.send('Clear');
       }
     };
