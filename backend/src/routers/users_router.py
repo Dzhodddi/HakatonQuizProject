@@ -126,10 +126,10 @@ async def get_user(userId: int, database: Session = Depends(get_sync_db_session)
     for ratings in user.rating_list:
         if ratings.quizzes is not None:
             quizzes_history.add(ratings.quizzes)
-            print(ratings.rating)
+            # print(ratings.rating)
 
 
-    quiz_history = [f'You completed {quiz.id} quiz' for quiz in quizzes_history]
+    quiz_history = [f'You completed {quiz.title} quiz' for quiz in quizzes_history]
     return {"first_name": user.first_name, "second_name": user.second_name, "email": user.email, "quiz_history": quiz_history}
 
 
