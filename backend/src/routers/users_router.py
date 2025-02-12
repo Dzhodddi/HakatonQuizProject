@@ -24,7 +24,7 @@ async def register_users(creds: RegisterUserEmail, database: Session = Depends(g
             first_name = creds.first_name,
             second_name = creds.second_name,
             email = creds.email,
-            password_hash = hash(creds.password + SALT())
+            password_hash = bytes(creds.password + SALT(), "utf-8")
         )
         database.add(new_user)
         database.commit()
@@ -52,7 +52,7 @@ async def login_users(creds: LoginUserEmail, database: Session = Depends(get_syn
 
     try:
         result = res.scalars().one()
-        user_password = hash(creds.password + SALT())
+        user_password = bytes(creds.password + SALT(), "utf-8")
         if user_password == result.password_hash:
             return {"id": result.id, "first_name": result.first_name, "second_name": result.second_name, "email": result.email}
         else:

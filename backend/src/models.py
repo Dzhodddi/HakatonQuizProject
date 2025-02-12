@@ -16,7 +16,7 @@ class Users(Base):
     first_name: Mapped[str]
     second_name: Mapped[str]
     email: Mapped[str]
-    password_hash: Mapped[int]
+    password_hash: Mapped[bytes]
 
     quizzes_list: Mapped[list["Quizzes"]] =  relationship(back_populates="user", cascade="delete")
     rating_list: Mapped[list["QuizRating"]]= relationship(
