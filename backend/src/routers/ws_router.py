@@ -13,16 +13,18 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             # Receive message from client
-            message = await websocket.receive_text()
-
             with open(f"{WEBSOCKET_LOG_DIR}ws.log", "w") as f:
-                if f.read() == "Updated":
-                    await websocket.send_text("Updated")
+                # if f.read() == "Updated":
+                #     print("Successfully updated")
+                await websocket.send_text(f"{f.read()}")
 
-            if message == "Clear":
-                with open(f"{WEBSOCKET_LOG_DIR}ws.log", "w") as f:
-                    f.write("Clear")
+            message = await websocket.receive_text()
+            with open(f"{WEBSOCKET_LOG_DIR}ws.log", "w") as f:
+                f.write(f"{message}")
 
-            # await websocket.send_text(f"Message received: {message}")
+
+            # if message == "Clear":
+
+
     except WebSocketDisconnect:
         print("Client disconnected")
