@@ -4,7 +4,7 @@ from typing import Type
 
 from fastapi import Depends, HTTPException, APIRouter
 from fastapi import File, UploadFile
-from sqlalchemy import select, and_
+from sqlalchemy import select, and_, text
 from sqlalchemy.exc import IntegrityError, NoResultFound
 from sqlalchemy.orm import Session
 
@@ -104,6 +104,7 @@ async def delete_users(userId: int, creds: DeleteUser, database: Session = Depen
 
 
     try:
+        database.execute(text("DELETE FROM rating WHERE guest_id = :guest_id"), {"guest_id": userId})
         database.delete(user)
         database.commit()
         with open(f"{WEBSOCKET_LOG_DIR}ws.log", "w") as f:
