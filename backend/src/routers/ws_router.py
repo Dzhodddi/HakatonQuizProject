@@ -13,7 +13,7 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             # Receive message from client
-            with open(f"{WEBSOCKET_LOG_DIR}ws.log", "w") as f:
+            with open(f"{WEBSOCKET_LOG_DIR}ws.log", "r") as f:
                 # if f.read() == "Updated":
                 #     print("Successfully updated")
                 await websocket.send_text(f"{f.read()}")
