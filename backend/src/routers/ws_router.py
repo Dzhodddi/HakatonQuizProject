@@ -25,3 +25,10 @@ async def websocket_endpoint(websocket: WebSocket):
 
     except WebSocketDisconnect:
         print("Client disconnected")
+
+
+
+@ws_router.get("/get_ws_status")
+async def get_ws_status():
+    with open(f"{WEBSOCKET_LOG_DIR}ws.log", "r") as f:
+        return {"status" : f.read()}
