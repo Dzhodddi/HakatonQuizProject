@@ -9,7 +9,7 @@ import { socketUrl } from 'src/utils';
 export interface QuizzesSectionProps {}
 
 export const QuizzesSection: FC<QuizzesSectionProps> = memo(() => {
-  const { quizzes, fetchQuizzes } = useQuizzesData();
+  const { quizzes, fetchQuizzes, getStatus } = useQuizzesData();
 
   const [logs, setLogs] = useState<string[]>([]);
   const [socket, setSocket] = useState<WebSocket | null>(null);
@@ -24,10 +24,7 @@ export const QuizzesSection: FC<QuizzesSectionProps> = memo(() => {
       setLogs((prevLogs) => [...prevLogs, logMessage]);
 
       if (logMessage.includes('Updated')) {
-        console.log('Fetching quizzes');
         void fetchQuizzes();
-        console.log('Quizzes fetched');
-        console.log(logs);
         socket?.send('Clear');
       }
     };
@@ -41,6 +38,20 @@ export const QuizzesSection: FC<QuizzesSectionProps> = memo(() => {
       ws.close();
     };
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      if (socket && socket.readyState === WebSocket.OPEN) {
+        const response = await getStatus();
+        if (response === 'Updated') {
+          void fetchQuizzes();
+          socket.send('Clear');
+        }
+      }
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [socket]);
 
   useEffect(() => {
     void fetchQuizzes();

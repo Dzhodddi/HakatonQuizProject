@@ -21,5 +21,16 @@ export const useQuizzesData = () => {
     }
   }, []);
 
-  return { quizzes, fetchQuizzes, apiError, loading };
+  const getStatus = useCallback(async () => {
+    try {
+      const response = await quizzesApi.getWSStatus();
+
+      return response.status;
+    } catch (error) {
+      handleError(error);
+      return "error";
+    }
+  }, []);
+
+  return { quizzes, fetchQuizzes, apiError, loading, getStatus };
 };

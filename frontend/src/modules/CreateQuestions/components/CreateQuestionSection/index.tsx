@@ -28,24 +28,15 @@ export const CreateQuestionsSection: FC<CreateQuestionsSectionProps> = memo(() =
   const { loading, apiError, postCreateQuiz } = useCreateQuiz();
 
   const onTitleChange = (title: string, index: number) => {
-    const newQuestions = [...questions];
-    newQuestions[index].title = title;
-    setQuestions(newQuestions);
+    setQuestions((prev) => prev.map((question, qIndex) => qIndex === index ? { ...question, title } : question));
   };
 
   const onOptionsChange = (options: string[], index: number) => {
-    const newQuestions = [...questions];
-    newQuestions[index].option1 = options[0];
-    newQuestions[index].option2 = options[1];
-    newQuestions[index].option3 = options[2];
-    newQuestions[index].option4 = options[3];
-    setQuestions(newQuestions);
+    setQuestions((prev) => prev.map((question, qIndex) => qIndex === index ? { ...question, option1: options[0], option2: options[1], option3: options[2], option4: options[3] } : question));
   };
 
   const setCurrentCorrectOption = (questionIndex: number, index: number) => {
-    const newQuestions = [...questions];
-    newQuestions[questionIndex].correct_option = Number(index);
-    setQuestions(newQuestions);
+    setQuestions((prev) => prev.map((question, qIndex) => qIndex === questionIndex ? { ...question, correct_option: index } : question));
   };
 
   const addQuestion = () => {
