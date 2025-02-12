@@ -24,11 +24,15 @@ Frontend:
 ### Usage
 
 # Requirements
-
+```
 node.js
+
 python 3.12.3
+
 npm
+ 
 pip
+```
 
 To install:
 ```
